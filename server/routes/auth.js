@@ -33,6 +33,7 @@ router.get("/login/success", async (req, res) => {
       res.cookie("jwt", token, {
         secure: process.env.NODE_ENV === "development" ? false : true,
         httpOnly: true,
+        sameSite: "none",
       });
 
       return res.status(200).json({ user: user, token: token });
@@ -103,6 +104,7 @@ router.post("/login", async (req, res) => {
     res.cookie("jwt", token, {
       secure: process.env.NODE_ENV === "development" ? false : true,
       httpOnly: true,
+      sameSite: "none",
     });
 
     return res.status(200).json({ user: u, token: token });
@@ -143,6 +145,7 @@ router.post("/signup", async (req, res) => {
     res.cookie("jwt", token, {
       secure: process.env.NODE_ENV === "development" ? false : true,
       httpOnly: true,
+      sameSite: "none",
     });
 
     return res.status(201).json({ user: user, token: token });
