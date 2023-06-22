@@ -77,6 +77,7 @@ app.post("/upload", multer.single("file"), async (req, res) => {
       blobStream.end(req.file.buffer);
     } else throw "error with img";
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
