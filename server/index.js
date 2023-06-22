@@ -34,14 +34,6 @@ const storage = new Storage({
 
 const bucket = storage.bucket(`${process.env.YOUR_STORAGE_BUCKET}`);
 
-// app.use(
-// 	cookieSession({
-// 		name: "session",
-// 		keys: ["cyberwolve"]s,
-// 		maxAge: 24 * 60 * 60 * 100,
-// 	})
-// );
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -50,35 +42,11 @@ app.use(passport.initialize());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://tummoc-assignment-client.vercel.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })
 );
-
-const middleware = async (req, res, next) => {
-  const cookie = req.cookies["jwt"];
-
-  const u = jwt.decode(cookie);
-  const data = u;
-
-  console.log("Calling middelware");
-  console.log(data);
-
-  if (data) {
-    try {
-      const user = await User.findById(data["_id"]);
-
-      req.user = user;
-      console.log(user);
-      next();
-    } catch (error) {
-      res.status(500).json({ message: "Something went wrong!" });
-    }
-  } else {
-    res.status(403).json({ message: "Pls login!" });
-  }
-};
 
 app.use("/auth", authRoute);
 app.use("/city", cityRoute);
