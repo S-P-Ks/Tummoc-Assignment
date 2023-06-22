@@ -42,7 +42,7 @@ app.use(passport.initialize());
 
 app.use(
   cors({
-    origin: "https://tummoc-assignment-client.vercel.app",
+    origin: `${process.env.CLIENT_URL}`,
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })

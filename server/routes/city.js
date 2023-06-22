@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   console.log(req.body);
   const cookie = req.cookies["jwt"];
+
   if (cookie) {
     const u = jwt.decode(cookie);
     const data = u["data"];

@@ -23,12 +23,17 @@ router.get("/login/success", async (req, res) => {
           data: user,
         },
         "secret",
-        { expiresIn: 60 }
+        {
+          expiresIn: 60,
+        }
       );
 
       // const b = {};
 
-      res.cookie("jwt", token);
+      res.cookie("jwt", token, {
+        secure: process.env.NODE_ENV === "development" ? false : true,
+        httpOnly: true,
+      });
 
       return res.status(200).json({ user: user, token: token });
     } catch (error) {
@@ -91,13 +96,19 @@ router.post("/login", async (req, res) => {
         data: u,
       },
       "secret",
-      { expiresIn: 60 }
+      {
+        expiresIn: 60,
+      }
     ); // expiry in seconds
-    res.cookie("jwt", token);
+    res.cookie("jwt", token, {
+      secure: process.env.NODE_ENV === "development" ? false : true,
+      httpOnly: true,
+    });
 
     return res.status(200).json({ user: u, token: token });
   } catch (error) {
-    res.send("Something went wrong!");
+    console.log(error);
+    res.status(500).send("Something went wrong!");
   }
 });
 
@@ -129,7 +140,10 @@ router.post("/signup", async (req, res) => {
       "secret",
       { expiresIn: 60 }
     ); // expiry in seconds
-    res.cookie("jwt", token);
+    res.cookie("jwt", token, {
+      secure: process.env.NODE_ENV === "development" ? false : true,
+      httpOnly: true,
+    });
 
     return res.status(201).json({ user: user, token: token });
   } catch (error) {
