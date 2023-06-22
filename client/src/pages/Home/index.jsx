@@ -55,6 +55,7 @@ function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   const addCities = async (cities) => {
+    console.log(process.env.REACT_APP_API_URL);
     await axios
       .post(`${process.env.REACT_APP_API_URL}/city`, cities, {
         withCredentials: true,

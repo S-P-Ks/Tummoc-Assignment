@@ -35,6 +35,7 @@ function Login() {
   const auth = useSelector((state) => state.auth);
 
   const emailLogin = async (e) => {
+    console.log(process.env.REACT_APP_API_URL);
     e.preventDefault();
 
     try {
