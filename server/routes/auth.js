@@ -176,7 +176,11 @@ router.get(
       "secret",
       { expiresIn: 60 }
     ); // expiry in seconds
-    res.cookie("jwt", token);
+    res.cookie("jwt", token, {
+      secure: process.env.NODE_ENV === "development" ? false : true,
+      httpOnly: true,
+      sameSite: "none",
+    });
     return res.redirect(process.env.CLIENT_URL);
   }
 );
