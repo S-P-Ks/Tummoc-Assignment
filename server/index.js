@@ -28,7 +28,7 @@ let project_id = `${process.env.PROJECT_ID}`;
 // let keyFilename = `${process.env.keyFilename}`;
 
 const credential = JSON.parse(
-  Buffer.from(process.env.CLOUD_STORAGE, "base64").toString()
+  Buffer.from(`${process.env.CLOUD_STORAGE}`, "base64").toString()
 );
 
 const storage = new Storage({
