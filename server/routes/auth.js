@@ -22,7 +22,7 @@ router.get("/login/success", async (req, res) => {
         {
           data: user,
         },
-        "secret",
+        `${process.env.JWT_SECRET}`,
         {
           expiresIn: 60,
         }
@@ -96,7 +96,7 @@ router.post("/login", async (req, res) => {
       {
         data: u,
       },
-      "secret",
+      `${process.env.JWT_SECRET}`,
       {
         expiresIn: 60,
       }
@@ -139,7 +139,7 @@ router.post("/signup", async (req, res) => {
       {
         data: user,
       },
-      "secret",
+      `${process.env.JWT_SECRET}`,
       { expiresIn: 60 }
     ); // expiry in seconds
     res.cookie("jwt", token, {
@@ -173,14 +173,16 @@ router.get(
       {
         data: u,
       },
-      "secret",
+      `${process.env.JWT_SECRET}`,
       { expiresIn: 60 }
     ); // expiry in seconds
+
     res.cookie("jwt", token, {
       secure: process.env.NODE_ENV === "development" ? false : true,
       httpOnly: true,
       sameSite: "none",
     });
+
     return res.redirect(process.env.CLIENT_URL);
   }
 );

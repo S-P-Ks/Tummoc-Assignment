@@ -25,11 +25,19 @@ const multer = Multer({
 });
 
 let project_id = `${process.env.PROJECT_ID}`;
-let keyFilename = `${process.env.keyFilename}`;
+// let keyFilename = `${process.env.keyFilename}`;
+
+const credential = JSON.parse(
+  Buffer.from(process.env.CLOUD_STORAGE, "base64").toString()
+);
 
 const storage = new Storage({
   project_id,
-  keyFilename,
+  // keyFilename,
+  credentials: {
+    client_email: credential.client_email,
+    private_key: credential.private_key,
+  },
 });
 
 const bucket = storage.bucket(`${process.env.YOUR_STORAGE_BUCKET}`);
